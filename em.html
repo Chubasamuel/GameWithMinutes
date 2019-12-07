@@ -1,0 +1,480 @@
+<!DOCTYPE html><html>                                                   
+	<head><title>Each minute beep</title>                                          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta charset="utf-8">                   <link rel="stylesheet" href=""></head>
+	<body> <div id="mainPage">
+		<center><button id="startStopBtn" onclick="startStopTimer(this)">Start</button></center>
+		<button id="openSettingsBtn" onclick="showSettings()">Settings</button>
+		<audio id="beep0" src="beep/beep0.mp3"></audio>
+		<audio id="beep1" src="beep/beep1.mp3"></audio>  
+		<audio id="beep2" src="beep/beep2.mp3"></audio>  
+		<audio id="beep3" src="beep/beep3.mp3"></audio>  
+		<audio id="beep4" src="beep/beep4.mp3"></audio>  
+		<audio id="beep5" src="beep/beep5.mp3"></audio>  
+		<audio id="beep6" src="beep/beep6.mp3"></audio>  
+		<audio id="beep7" src="beep/beep7.mp3"></audio>  
+		<audio id="beep8" src="beep/beep8.mp3"></audio>  
+		<audio id="beep9" src="beep/beep9.mp3"></audio>
+		<audio id="beep10" src="beep/beep10.mp3"></audio>
+		<audio id="beep11" src="beep/beep11.mp3"></audio>  
+		<audio id="beep12" src="beep/beep12.mp3"></audio>  
+		<audio id="beep13" src="beep/beep13.mp3"></audio>  
+		<audio id="beep14" src="beep/beep14.mp3"></audio>  
+		<audio id="beep15" src="beep/beep15.mp3"></audio>  
+		<audio id="beep16" src="beep/beep16.mp3"></audio>  
+		<audio id="beep17" src="beep/beep17.mp3"></audio>  
+		</div>
+<style>
+*{user-select:none;}
+
+#startStopBtn{
+border:1px solid #aaf;
+border-radius:200px;
+position:fixed;
+font-weight:bold;
+background-color:#0d5;
+color:white;
+user-select:none;
+}
+button:focus{
+	outline:none;}
+body{
+	background-color:#669;}
+#openSettingsBtn{
+position:fixed;
+padding:0;
+background-color:#669;
+border-top-right-radius:15px;
+border-bottom-left-radius:15px;
+color:white;
+font-weight:bold;
+border:1px solid #aaf;}
+
+@media (max-width:300px){
+
+}
+@media (min-width:738px){
+
+#startStopBtn{
+	width:250px; height:250px;
+font-size:4em;top:40%;left:35%;}
+
+#openSettingsBtn{
+height:5%;
+width:15%;
+font-size:1.4em;
+}
+
+}
+@media (max-width:737px) and (orientation: landscape){
+
+#startStopBtn{
+width:250px; height:250px;
+font-size:4em;top:20%;left:35%;}
+
+#openSettingsBtn{
+height:7%;
+width:15%;
+font-size:1.2em;
+}
+}
+@media (max-width:424px) and (orientation: portrait){
+
+#startStopBtn{
+	width:250px; height:250px;
+font-size:4em;top:35%;left:15%;}
+
+#openSettingsBtn{
+height:5%;
+width:34%;
+font-size:1em;
+}}
+
+@media (max-width:737px) and (orientation: portrait) and (min-width:423px){
+
+#startStopBtn{
+	width:250px; height:250px;
+font-size:4em;top:35%;left:25%;}
+
+#openSettingsBtn{
+height:5%;
+width:34%;
+font-size:1em;
+}}
+</style>
+<div id="Settings" style="display:none">
+	<div id="settingsHeader"><span id="settingsHeaderLabel">Game With Minutes</span><img id="clockImage" src="clock.jpg" /><span id="closeSetting" onclick="showMainPage()">&#215;</span></div>
+		<div id="sounds">
+
+			<div id="interval"><h3>Interval(in seconds)</h3><center><input id="intervalChange"  type="number" placeholder="Not < 0.5 Default is 5sec" /></center><div id="errInterval" style="display:none;color:#b00;text-align:center;"></div></div>
+			<h3>Sound</h3>
+		<span onclick="preplaySound('beep0')" id="sbeep0">Beep 0</span><span onclick="preplaySound('beep1')" id="sbeep1">Beep 1</span><span onclick="preplaySound('beep2')" id="sbeep2">Beep 2
+		</span><span onclick="preplaySound('beep3')" id="sbeep3">Beep 3</span><span onclick="preplaySound('beep4')" id="sbeep4">Beep 4</span><span onclick="preplaySound('beep5')" id="sbeep5">Beep 5</span><span onclick="preplaySound('beep6')" id="sbeep6">Beep 6</span><span onclick="preplaySound('beep7')" id="sbeep7">Beep 7</span><span onclick="preplaySound('beep8')" id="sbeep8">Beep 8</span><span onclick="preplaySound('beep9')"id="sbeep9">Beep 9</span><span onclick="preplaySound('beep10')"id="sbeep10">Beep 10</span><span onclick="preplaySound('beep11')" id="sbeep11">Beep 11</span><span onclick="preplaySound('beep12')" id="sbeep12">Beep 12</span><span onclick="preplaySound('beep13')" id="sbeep13">Beep 13</span><span onclick="preplaySound('beep14')" id="sbeep14">Beep 14</span><span onclick="preplaySound('beep15')" id="sbeep15">Beep 15</span><span onclick="preplaySound('beep16')" id="sbeep16">Beep 16</span><span onclick="preplaySound('beep17')" id="sbeep17">Beep 17</span>
+</div>
+<div id="settingsFooter"><button id="saveSettingsBtn" onclick="saveSettings()">Save</button><center><span id="copyright">&copy; Chuba Samuel, DCOR</span></center><button id="contactBtn" onclick="location.href='mailto:chubasamuel@gmail.com?subject=Feedback%20on%20Game%20With%20Minutes'">Contact</button></div></div>
+<style>
+html,body{height:100%;margin:0;}
+
+#intervalChange{
+	border:0.5px solid #aaf;
+	border-radius:5px;
+}
+#clockImage{
+position:fixed;
+border-radius:360px;
+border:2px solid #aaf;
+}
+#clockImage{
+		-webkit-animation: rotation 1s infinite linear;
+		animation: rotation 1s infinite linear;
+}
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(360deg);
+		}
+}
+@keyframes rotation {
+                from {
+                                transform: rotate(0deg);
+                }
+                to {                                                                                    transform: rotate(360deg);                      }                                                       }
+#settingsHeaderLabel{
+position:fixed;
+font-family:"monospace";
+}
+#sounds{
+display:flex;
+flex-direction:column;
+margin:0;
+height:78%;
+width:100%;
+overflow-y:scroll;
+background-color:#779;
+}
+#sounds span{
+
+flex:1;
+/*display:block;*/
+width:100%;
+height:12%;
+font-family:"Georgia,serif";
+text-align:center;
+background-color:#669;
+border:0.5px solid #aaf;
+color:white;
+font-weight:400;
+padding-top:0;padding-bottom:0;
+}
+
+#Settings{
+width:100%;
+height:100%;
+}
+#settingsHeader{
+height:12%;
+width:100%;
+margin:0;
+position:relative;
+border:1px solid #aaf;
+background-image: linear-gradient(to right, #669 , #bbb);
+}
+#settingsFooter{
+height:10%;
+width:100%;
+margin:0;
+border:1px solid #aaf;
+background-image: linear-gradient(to right, #bbb ,#669);
+}
+h3{
+text-align:center; 
+color:#323;}
+*{box-sizing:border-box;}
+*:focus{outline:none;}
+#closeSetting{
+text-align:right;
+color:#669;
+position:fixed;
+}
+#closeSetting:hover{
+	color:red;}
+#contactBtn,#saveSettingsBtn{
+padding:0px;
+background-color:#669;
+border:1px solid #aaf;
+}
+#contactBtn{
+position:fixed;
+color:white;
+font-weight:bold;
+border-top-right-radius:15px;
+border-bottom-left-radius:15px;
+}
+#saveSettingsBtn{position:fixed;
+color:white;
+font-weight:bold;
+border-top-left-radius:15px;
+border-bottom-right-radius:15px;
+}
+#copyright{
+position:fixed;
+color:white;
+bottom:17px;
+left:0;right:0;
+font-family:"Arial,sans-serif";
+/*font-family:"Arial,Sans serif"*/
+}
+
+@media (min-width:738px){
+
+
+#clockImage{
+width:80px;height:80px;
+top:0.8%; right:10%;}
+
+#settingsHeaderLabel{
+font-size:3em;
+top:2%;}
+#sounds span{
+
+font-size:1.5em;
+}
+h3{
+	font-size:2em;}
+
+#closeSetting{
+right:10px;
+font-size:400%;
+}
+
+#contactBtn,#saveSettingsBtn{
+height:4%;
+width:15%;
+}
+#contactBtn{
+left:10px;
+bottom:15px;
+font-size:1.2em;}
+
+#saveSettingsBtn{
+right:10px;bottom:15px;
+font-size:1.2em;}
+}
+
+@media (max-width:737px) and (orientation: landscape){
+
+#clockImage{
+width:80px;height:80px;
+top:27%; right:10%;}
+
+#settingsHeaderLabel{
+font-size:1.5em;
+top:2%;}
+#sounds span{
+
+font-size:1.2em;
+}
+h3{
+	font-size:1.4em;}
+
+#closeSetting{
+right:10px;
+font-size:300%;
+top:0.2px;
+}
+
+#contactBtn,#saveSettingsBtn{
+height:6%;
+width:12%;
+}
+#contactBtn{
+left:10px;
+bottom:10px;
+font-size:1em;}
+
+#saveSettingsBtn{
+right:10px;bottom:10px;
+font-size:1em;}
+#copyright{
+bottom:1.5px;
+}
+}
+@media (max-width:424px) and (orientation: portrait),
+ (max-width:737px) and (orientation: portrait) and (min-width:423px){
+#copyright{
+font-size:0.6em;}
+#clockImage{
+width:70px;height:70px;
+top:0.4%; right:12%;}
+
+#settingsHeaderLabel{
+font-size:1.5em;
+top:2%;
+overflow-x:scroll;}
+#sounds span{
+
+font-size:1.2em;
+}
+h3{
+	font-size:1.4em;}
+
+#closeSetting{
+right:10px;
+font-size:400%;
+}
+
+#contactBtn,#saveSettingsBtn{
+height:5%;
+width:34%;
+}
+#contactBtn{
+left:10px;
+bottom:17px;
+font-size:1em;}
+
+#saveSettingsBtn{
+right:10px;bottom:17px;
+font-size:1em;}
+
+}
+
+@media (max-width:300px){
+
+}
+</style>
+
+
+
+		<!-- <audio id="sound2" src="sound2.mp3"></audio> -->
+<script type="text/javascript">
+	//alert("width:"+window.innerWidth);alert("height:"+window.innerHeight);
+
+var timerRunning=false;
+var soundSrc="beep2";
+var sound=(typeof(Storage)!=undefined&&localStorage.getItem("soundStore"))?document.getElementById(localStorage.getItem("soundStore")):document.getElementById(soundSrc);
+var intTimer=5;
+var stopAfter=0.5;
+var intClearer;
+var timerClearer;
+var preplayInt;
+var preplay;
+var curSoundSel=null;
+var valueIntervalChanged=false;
+var errIntValue=false;
+document.getElementById("s"+sound.id).style.backgroundColor="#aaf";
+function preplaySound(a){
+preplay=document.getElementById(a);
+if(curSoundSel){document.getElementById("s"+curSoundSel).style.backgroundColor="#669";}
+	else{;
+		document.getElementById("s"+sound.id).style.backgroundColor="#669";}
+curSoundSel=a;
+document.getElementById("s"+a).style.backgroundColor="#aaf";
+var s=preplay;
+s.load();
+s.play();
+preplayInt=setTimeout(clearPreplaySound,500);
+}
+function clearPreplaySound(){
+clearTimeout(preplayInt);
+preplay.pause();
+}
+
+function intervalChanged(){
+var aaa =document.getElementById("intervalChange");
+var pat=/^[\d]+[\.]?[\d]*$/;
+if(aaa.value!=""){
+	valueIntervalChanged=true;
+	if(aaa.value.match(pat)&&parseFloat(aaa.value)>0){
+		intervalNew=aaa.value;
+		errIntValue=false;
+	return true;}
+	else if((valueIntervalChanged&&!aaa.value.match(pat))||(valueIntervalChanged&&!parseFloat(aaa.value)>0)){
+		errIntValue="New interval is invalid";
+		writeErrInterval("block",errIntValue);
+		return false; }
+	else{errIntValue="An unknown error is preventing the settings from saving..";  return false; }}
+	else{
+		errIntValue=false;
+		valueIntervalChanged=false; return false;
+	}
+}
+function changeSettingsStorage(id,value){
+	if(typeof(Storage)!=undefined){
+		localStorage.setItem(id,value);
+	}
+
+}
+function changeSettings(){
+	if(typeof(Storage)!=undefined){
+		if(localStorage.getItem("soundStore")){
+			sound=document.getElementById(localStorage.getItem("soundStore"));
+		}
+		if(localStorage.getItem("intervalStore")){
+			intTimer=parseFloat(localStorage.getItem("intervalStore"));
+			document.getElementById("intervalChange").value=intTimer;
+			if(timerRunning){
+		stopTimer();
+		startTimer();}
+		}
+	}
+}
+changeSettings();
+function saveSettings(){
+	try{
+	if(curSoundSel){changeSettingsStorage("soundStore",curSoundSel);
+	}
+	if(intervalChanged()&&!errIntValue){
+		changeSettingsStorage("intervalStore",intervalNew);
+	errIntValue=false;writeErrInterval("none","");}
+	else if(intervalChanged()&&errIntValue){
+	writeErrInterval("block",errIntValue);
+	}
+	else{}
+	if(!errIntValue){
+		showMainPage();
+		changeSettings();}
+		else{} }
+	catch(e){writeErrInterval("block",e);}
+}
+function writeErrInterval(modeDisp,msg){
+document.getElementById("errInterval").style.display=modeDisp;
+document.getElementById("errInterval").innerHTML=msg;
+}
+function playSound(){
+sound.load();
+sound.play();
+sound.volume=1.0;
+intClearer=setTimeout(stopSound,(stopAfter*1000));
+}
+function stopSound(){
+sound.pause();}
+function startTimer(){
+timerClearer=setInterval(playSound,intTimer*1000);
+timerRunning=true;
+	 }
+function stopTimer(){
+timerRunning=false;
+sound.pause();
+clearInterval(timerClearer);
+clearTimeout(intClearer);
+}
+function startStopTimer(a){
+if(a.innerHTML=="Start"){
+	startTimer();
+a.innerHTML="Stop";a.style.backgroundColor="red";}
+	else{
+		stopTimer();a.innerHTML="Start";
+		a.style.backgroundColor="#0d5";}
+}
+function showSettings(){
+document.getElementById("mainPage").style.display="none";
+document.getElementById("Settings").style.display="block";
+
+}
+function showMainPage(){
+document.getElementById("mainPage").style.display="block";
+document.getElementById("Settings").style.display="none";
+}
+</script>
+	</body>
+</html>
